@@ -2,34 +2,21 @@
   <div class="page">
     <div class="page-title">Подписание документа</div>
     <div class="page-content">
-      
-      <mf-button
-          :backgroundColor="'#0CC572'"
-          class="btn-read-doc"
-          >Читать документ
-        </mf-button>
 
+      <mf-button :backgroundColor="'#0CC572'" class="btn-read-doc">Читать документ</mf-button>
       <info-list class="info-list"></info-list>
 
-      <mf-button
-          v-if="!codeSended"
-          :backgroundColor="'#3662FA'"
-          @click="sendCode"
-          class="sign-document"
-          >Отправить код
-        </mf-button>
+      <mf-button v-if="!codeSended" :backgroundColor="'#3662FA'" :backgrounDisabledColor="'#BBCAFD'" @click="sendCode"
+        class="sign-document" :disabled="processingRequest">Отправить код
+      </mf-button>
 
       <div v-else class="sign-document">
         <mf-input v-model="smsCode" type="number" :placeholder="'Введите код из смс'" />
-        <mf-button 
-          :backgroundColor="'#3662FA'"
-          :backgrounDisabledColor="'#BBCAFD'" 
-          :disabled="!smsCode || smsCode.length != 4"
-          @click="sign" 
-          >Подписать
+        <mf-button :backgroundColor="'#3662FA'" :backgrounDisabledColor="'#BBCAFD'"
+          :disabled="processingRequest || !smsCode || smsCode.length != 4" @click="sign">Подписать
         </mf-button>
 
-        <div class="resign"><a ref="/">Отправить код повторно</a></div>
+        <div class="resign" :disabled="processingRequest"><a ref="/">Отправить код повторно</a></div>
       </div>
 
       <div class="footer">Если вы обнаружили ошибку в информации о своих данных: Обратитесь в поддержку</div>
@@ -41,28 +28,50 @@
 import MfInput from "@/components/UI/MfInput.vue";
 import MfButton from "@/components/UI/MfButton.vue";
 import InfoList from '@/components/InfoList.vue';
+// import axios from 'axios';
 
 export default {
-  components: { 
+  components: {
     MfInput,
     MfButton,
     InfoList
   },
-  
+
   data() {
     return {
       codeSended: false,
       smsCode: null,
-      currentComponent: 'send-code'
+      currentComponent: 'send-code',
+      processingRequest: false
     }
   },
 
   methods: {
     sendCode() {
-      this.codeSended = true;
+      // this.codeSended = true;
+      this.processingRequest = true
+
+      setTimeout(() => {
+        console.log("got answer")
+        this.processingRequest = false;
+        this.codeSended = true;
+      }, 1500)
+      
+      // axios.post('http://test-back.dokku.moneyfesto.ru/api/front/send_sign_code', {},
+      //   {
+      //     params: {
+      //       token: "gAAAAABjvmCv3TVcQLaE3oHcxo3f-SJP8w3MfnBWmuUoGcWSfUHyw8aPyGK_owADfvsnMLbYqB6Rx3RBNTM85vwvC5VYxJ194w=="
+      //     }
+      //   }).then(response => console.log(response))
+      //   .catch(error => console.log(error.response.data.error))
     },
+
     sign() {
-      console.log("SIGNED")
+      this.processingRequest = true
+      setTimeout(() => {
+        console.log("got answer")
+        this.processingRequest = false;
+      }, 1500)
     }
   },
 
