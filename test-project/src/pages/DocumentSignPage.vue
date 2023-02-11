@@ -6,18 +6,7 @@
       <mf-button :backgroundColor="'#0CC572'" class="btn-read-doc">Читать документ</mf-button>
       <info-list class="info-list"></info-list>
 
-      <mf-button v-if="!codeSended" :backgroundColor="'#3662FA'" :backgrounDisabledColor="'#BBCAFD'" @click="sendCode"
-        class="sign-document" :disabled="processingRequest">Отправить код
-      </mf-button>
-
-      <div v-else class="sign-document">
-        <mf-input v-model="smsCode" type="number" :placeholder="'Введите код из смс'" />
-        <mf-button :backgroundColor="'#3662FA'" :backgrounDisabledColor="'#BBCAFD'"
-          :disabled="processingRequest || !smsCode || smsCode.length != 4" @click="sign">Подписать
-        </mf-button>
-
-        <div class="resign" :disabled="processingRequest"><a ref="/">Отправить код повторно</a></div>
-      </div>
+      <component v-model="isCodeRequested" :is='displayedComponent' class="sign-document"> </component>
 
       <div class="footer">Если вы обнаружили ошибку в информации о своих данных: Обратитесь в поддержку</div>
     </div>
@@ -25,61 +14,32 @@
 </template>
 
 <script>
-import MfInput from "@/components/UI/MfInput.vue";
 import MfButton from "@/components/UI/MfButton.vue";
 import InfoList from '@/components/InfoList.vue';
+import CheckCode from '@/components/CheckCode.vue'
+import RequestCode from '@/components/RequestCode.vue'
 // import axios from 'axios';
 
 export default {
   components: {
-    MfInput,
     MfButton,
-    InfoList
+    InfoList,
+    CheckCode,
+    RequestCode
   },
 
   data() {
     return {
-      codeSended: false,
-      smsCode: null,
-      currentComponent: 'send-code',
-      processingRequest: false
-    }
-  },
-
-  methods: {
-    sendCode() {
-      // this.codeSended = true;
-      this.processingRequest = true
-
-      setTimeout(() => {
-        console.log("got answer")
-        this.processingRequest = false;
-        this.codeSended = true;
-      }, 1500)
-      
-      // axios.post('http://test-back.dokku.moneyfesto.ru/api/front/send_sign_code', {},
-      //   {
-      //     params: {
-      //       token: "gAAAAABjvmCv3TVcQLaE3oHcxo3f-SJP8w3MfnBWmuUoGcWSfUHyw8aPyGK_owADfvsnMLbYqB6Rx3RBNTM85vwvC5VYxJ194w=="
-      //     }
-      //   }).then(response => console.log(response))
-      //   .catch(error => console.log(error.response.data.error))
-    },
-
-    sign() {
-      this.processingRequest = true
-      setTimeout(() => {
-        console.log("got answer")
-        this.processingRequest = false;
-      }, 1500)
+      isCodeRequested: false,
+      displayedComponent: 'request-code',
     }
   },
 
   watch: {
-    smsCode(newVal) {
-      console.log(newVal)
+    isCodeRequested(value) {
+      this.displayedComponent = value ? "check-code" : "request-code"
     }
-  }
+  } 
 }
 </script>
 
@@ -108,7 +68,6 @@ export default {
   background-color: white;
   padding: 20px;
   flex-grow: 1;
-
   position: relative
 }
 
@@ -128,15 +87,6 @@ export default {
   align-content: center;
   align-items: stretch;
   text-align: center;
-}
-
-.resign {
-  margin-top: 12px;
-  padding: 16px;
-  color: #3662FA;
-  font-weight: 500;
-  font-size: 16px;
-  cursor: pointer;
 }
 
 .footer {
