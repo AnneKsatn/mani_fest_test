@@ -2,17 +2,33 @@
   <div class="page">
     <div class="page-title">Подписание документа</div>
     <div class="page-content">
-      <button class="btn-read-doc">Читать документ</button>
-      <ul>
-        <li><span>Согласие на обработку персональных данных можно подписать, указав код из SMS </span></li>
-        <li><span>Мы отправим код на Ваш номер +7 (999) 999-77-78. </span></li>
-      </ul>
+      
+      <mf-button
+          :backgroundColor="'#0CC572'"
+          class="btn-read-doc"
+          >Читать документ
+        </mf-button>
 
-      <button v-if="!codeSended" @click="sendCode" class="btn-sign">Отправить код</button>
+      <info-list class="info-list"></info-list>
+
+      <mf-button
+          v-if="!codeSended"
+          :backgroundColor="'#3662FA'"
+          @click="sendCode"
+          class="sign-document"
+          >Отправить код
+        </mf-button>
 
       <div v-else class="sign-document">
         <mf-input v-model="smsCode" type="number" :placeholder="'Введите код из смс'" />
-        <button class="btn-sign" @click="sign" :disabled="!smsCode || smsCode.length != 4">Подписать</button>
+        <mf-button 
+          :backgroundColor="'#3662FA'"
+          :backgrounDisabledColor="'#BBCAFD'" 
+          :disabled="!smsCode || smsCode.length != 4"
+          @click="sign" 
+          >Подписать
+        </mf-button>
+
         <div class="resign"><a ref="/">Отправить код повторно</a></div>
       </div>
 
@@ -23,13 +39,21 @@
 
 <script>
 import MfInput from "@/components/UI/MfInput.vue";
+import MfButton from "@/components/UI/MfButton.vue";
+import InfoList from '@/components/InfoList.vue';
 
 export default {
-  components: { MfInput },
+  components: { 
+    MfInput,
+    MfButton,
+    InfoList
+  },
+  
   data() {
     return {
-      codeSended: true,
-      smsCode: null
+      codeSended: false,
+      smsCode: null,
+      currentComponent: 'send-code'
     }
   },
 
@@ -50,7 +74,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .page {
   min-width: 100%;
   min-height: 100%;
@@ -80,38 +104,12 @@ export default {
 }
 
 .btn-read-doc {
-  padding: 16px 20px;
-  gap: 10px;
   width: 260px;
-  height: 52px;
-  background: #0CC572;
-  border-radius: 8px;
-  text-align: center;
-  border: none;
-  color: white;
-
-  font-family: 'Helvetica Neue';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-
   margin-bottom: 24px;
 }
 
-ul {
-  list-style-position: inside;
+.info-list {
   margin-bottom: 40px;
-  font-size: 16px;
-  list-style-type: disc;
-  color: #828796
-}
-
-li {
-  font-size: 26px;
-}
-
-li span {
-  font-size: 16px;
 }
 
 .sign-document {
@@ -121,30 +119,6 @@ li span {
   align-content: center;
   align-items: stretch;
   text-align: center;
-}
-
-.btn-sign {
-  padding: 16px 20px;
-  height: 52px;
-  
-  background: #3662FA;
-  border-radius: 8px;
-  border: 0px;
-
-  font-family: 'Helvetica Neue';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-
-  color: #FFFFFF;
-
-  text-align: center;
-}
-
-
-.btn-sign:disabled {
-  background: #BBCAFD;
 }
 
 .resign {
