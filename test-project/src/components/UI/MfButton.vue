@@ -7,6 +7,7 @@
 
 <script>
 export default {
+    name: 'mf-button',
     props: {
         backgroundColor: {
             type: String

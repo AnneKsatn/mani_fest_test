@@ -4,13 +4,13 @@
         <mf-button :backgroundColor="'#3662FA'" :backgrounDisabledColor="'#BBCAFD'"
             :disabled="processingRequest || !smsCode || smsCode.length != 4" @click="sign">Подписать
         </mf-button>
-        <div class="resign" :disabled="processingRequest"><a ref="/">Отправить код повторно</a></div>
+        <div class="resign" :disabled="processingRequest">
+            <mf-link>Отправить код повторно</mf-link>
+        </div>
     </div>
 </template>
 
 <script>
-import MfButton from "@/components/UI/MfButton.vue";
-import MfInput from "@/components/UI/MfInput.vue";
 
 export default {
 
@@ -19,11 +19,6 @@ export default {
             processingRequest: false,
             smsCode: null,
         }
-    },
-
-    components: {
-        MfButton,
-        MfInput
     },
 
     props: {
@@ -47,12 +42,8 @@ export default {
 
 <style>
 .resign {
-  margin-top: 12px;
-  padding: 16px;
-  color: #3662FA;
-  font-weight: 500;
-  font-size: 16px;
-  cursor: pointer;
-} 
-
+    margin-top: 12px;
+    padding: 16px;
+    cursor: pointer;
+}
 </style>

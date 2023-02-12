@@ -20,7 +20,7 @@ ul {
 }
 
 li {
-    font-size: 26px;
+    font-size: 16px;
 }
 
 li span {
