@@ -3,7 +3,10 @@
     <div class="page-title">Подписание документа</div>
     <div class="page-content">
 
-      <mf-button :backgroundColor="'#0CC572'" class="btn-read-doc">Читать документ</mf-button>
+      <mf-button :backgroundColor="'#0CC572'" class="btn-read-doc">
+        Читать документ
+        <div class="share-icon"></div>
+      </mf-button>
       <info-list class="info-list"></info-list>
 
       <component 
@@ -17,7 +20,6 @@
 </template>
 
 <script>
-import MfButton from "@/components/UI/MfButton.vue";
 import InfoList from '@/components/InfoList.vue';
 import CheckCode from '@/components/CheckCode.vue';
 import RequestCode from '@/components/RequestCode.vue';
@@ -25,7 +27,6 @@ import { mapState, mapMutations} from "vuex";
 
 export default {
   components: {
-    MfButton,
     InfoList,
     CheckCode,
     RequestCode
@@ -79,6 +80,14 @@ export default {
   padding: 20px;
   flex-grow: 1;
   position: relative
+}
+
+.share-icon {
+  background-image: url("../assets/share.png");
+  height: 16px;
+  width: 16px;
+  background-size: contain;
+  margin-left: 11px;
 }
 
 .btn-read-doc {

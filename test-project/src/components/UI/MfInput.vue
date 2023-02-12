@@ -31,10 +31,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .group {
     position: relative;
-    margin-bottom: 45px;
 }
 
 input {
@@ -60,6 +59,7 @@ input:focus {
 
 input::placeholder {
     text-align: center;
+    font-family: 'Helvetica Neue';
 }
 
 

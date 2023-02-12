@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import MfButton from "@/components/UI/MfButton.vue";
+// import SignDocumentService from "@/services/SignDocumentService";
 
 export default {
     name: 'request-code',
@@ -17,10 +17,6 @@ export default {
         return {
             processingRequest: false
         }
-    },
-
-    components: {
-        MfButton
     },
 
     props: {
@@ -38,15 +34,10 @@ export default {
                 this.$emit("update:modelValue", true)
             }, 1500)
 
-            // axios.post('http://test-back.dokku.moneyfesto.ru/api/front/send_sign_code', {},
-            //   {
-            //     params: {
-            //       token: "gAAAAABjvmCv3TVcQLaE3oHcxo3f-SJP8w3MfnBWmuUoGcWSfUHyw8aPyGK_owADfvsnMLbYqB6Rx3RBNTM85vwvC5VYxJ194w=="
-            //     }
-            //   }).then(response => console.log(response))
-            //   .catch(error => console.log(error.response.data.error))
 
-            // return error
+            // SignDocumentService.requestCode()
+            // .then(response => console.log(response))
+            // .catch(error => console.log(error.response.data.error))
         }
     }
 

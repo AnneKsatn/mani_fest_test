@@ -12,7 +12,10 @@ export default {
 <style scoped>
 a {
     color: #3662FA;
-    font-weight: 500;
     font-size: 16px;
+
+    font-family: 'Helvetica Neue';
+    font-style: normal;
+    font-weight: 500;
 } 
 </style>

@@ -1,8 +1,14 @@
 <template>
-    <ul>
-        <li><span>Согласие на обработку персональных данных можно подписать, указав код из SMS </span></li>
-        <li><span>Мы отправим код на Ваш номер +7 (999) 999-77-78. </span></li>
-    </ul>
+    <div class="list">
+        <div class="item">
+            <div class="icon"></div>
+            <div>Согласие на обработку персональных данных можно подписать, указав код из SMS</div>
+        </div>
+        <div class="item">
+            <div class="icon"></div>
+            <div>Мы отправим код на Ваш номер +7 (999) 999-77-78. </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -12,18 +18,25 @@ export default {
 </script>
 
 <style scoped>
-ul {
-    list-style-position: inside;
+.list {
     font-size: 16px;
-    list-style-type: disc;
     color: #828796
 }
 
-li {
-    font-size: 16px;
+.item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.item:not(:last-child){
+    margin-bottom: 16px;
 }
 
-li span {
-    font-size: 16px;
+.icon {
+    background-image: url("../assets/circle.png");
+    height: 8px;
+    width: 8px;
+    background-size: contain;
+    margin-right: 8px;
 }
 </style>

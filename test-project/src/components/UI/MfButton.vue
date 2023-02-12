@@ -45,10 +45,12 @@ export default {
 
     color: #FFFFFF;
 
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
 }
 
-.btn-sign:disabled {
-    background: #BBCAFD;
-}
 </style>
