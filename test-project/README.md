@@ -14,6 +14,10 @@
 
 В папке Components UI расположена UI - бибилеотека
 
+Используемые библиотеки:
+1. js-cookie для работы с куки
+2. vuex-persistedstate для предзагрузки состояния из кук
+
 ## Project setup
 ```
 npm install
